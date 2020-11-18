@@ -16,3 +16,11 @@ do this using the following steps:
 Now your virtual environment with the current versions of each module used for the project will be installed.
 To check the list of modules being used, type "pip freeze" or "pip list"
 The result of this command will be different based on whether your virtual environment is activated.
+
+
+ACCESSING DATABASE OBJECTS FROM THE COMMANDLINE:
+from src- manage.py  shell
+#from here import the table from the prescribed app
+from dishes.models import Dish
+#to display all objects type
+Dish.object.all()
