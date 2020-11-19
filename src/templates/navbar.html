@@ -1,0 +1,30 @@
+<head>
+  <style media="screen">
+    table {
+      border-collapse: separate;
+      border-spacing: 0 15px;
+    }
+    th a{
+      background-color: #EF8C17;
+      color: white;
+      width: 100px;
+      text-align: center;
+      border: 1px solid black;
+      padding: 7px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<nav>
+  <table>
+      <tr>
+
+    <th><a href="{% url 'home' %}">Home</a></th>
+    <th><a href="{% url 'search' %}">Search</a></th>
+    <th><a href="{% url 'signup' %}">Sign Up!</a></th>
+
+    </tr>
+    </table>
+    <p></p><p></p>
+
+</nav>

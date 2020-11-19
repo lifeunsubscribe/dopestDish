@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -29,6 +29,6 @@ def home_view(request,*args,**kwargs):
 urlpatterns = [
     path('', home_view, name='home'),     #display recent reviews, short blurb, login/signup options, to link to home.html we add name='home'
     path('admin/', admin.site.urls),    #interface to manage database objects
-    path('search/', search_view),       #search bar for restaurants or dishes with predictive text and/or options for adding to database
-    path('signup/', signup_view),
+    path('search/', search_view, name='search'),       #search bar for restaurants or dishes with predictive text and/or options for adding to database
+    path('signup/', signup_view, name='signup'),
 ]
