@@ -21,7 +21,19 @@
 
     <th><a href="{% url 'home' %}">Home</a></th>
     <th><a href="{% url 'search' %}">Search</a></th>
-    <th><a href="{% url 'signup' %}">Sign Up!</a></th>
+
+        <div>
+          {% if user.is_authenticated %}
+          <th><a href="{% url 'profile' %}">Profile</a></th>
+          <th><a href="{% url 'logout' %}">Logout</a></th>
+          {% else %}
+          <th><a href="{% url 'login' %}">Login</a></th>
+          <th><a href="{% url 'signup' %}">Signup</a></th>
+          {% endif %}
+        </div>
+
+
+
 
     </tr>
     </table>
