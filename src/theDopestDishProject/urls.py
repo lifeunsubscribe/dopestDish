@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 from dishes.views import dish_view, addDish_view, search_view
 from restaurants.views import restaurant_view, addRestaurant_view
 from profiles.views import signup_view
-#from locations.views import
-from django.contrib.auth import views as auth_views
 from profiles import views as profile_views
+#from locations.views import
 
 def home_view(request,*args,**kwargs):
     return render(request,"home.html", {})
@@ -37,3 +38,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='profiles/logout.html'), name='logout'),
     path('profile/', profile_views.profile, name='profile')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
