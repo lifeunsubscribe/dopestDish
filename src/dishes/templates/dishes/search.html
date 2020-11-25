@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+	    <div class="search-container">
+		    <form action="/action_page.php">
+			    <input type="text" placeholder="Search for dish" name="search">
+			    <button onclick="search()">Go</button>
+		    </form>
+	    </div>
+	</div>
+{% endblock content %}

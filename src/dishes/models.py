@@ -15,6 +15,10 @@ class Dish(models.Model):
     numReviews = models.IntegerField(default=0)
 
     class Meta:
+        verbose_name_plural = "dishes"
         constraints = [
             models.UniqueConstraint(fields=['title','resID'], name='menuItem')
         ]
+
+    def __str__(self):
+        return self.title
