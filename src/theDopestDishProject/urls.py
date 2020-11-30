@@ -24,6 +24,7 @@ from dishes.views import dish_view, addDish_view, search_view
 from restaurants.views import restaurant_view, addRestaurant_view
 from profiles.views import signup_view
 from profiles import views as profile_views
+from reviews.views import ReviewListView, ReviewCreateView
 #from locations.views import
 
 def home_view(request,*args,**kwargs):
@@ -36,7 +37,10 @@ urlpatterns = [
     path('signup/', signup_view, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='profiles/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='profiles/logout.html'), name='logout'),
-    path('profile/', profile_views.profile, name='profile')
+    path('profile/', profile_views.profile, name='profile'),
+    path('list_reviews/', ReviewListView.as_view(), name='review-list'),
+    path('review/new/', ReviewCreateView.as_view(), name='review-create'),
+
 ]
 
 if settings.DEBUG:
