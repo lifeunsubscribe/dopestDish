@@ -7,6 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.http import HttpResponse
 from .models import Review            #grabs the DB Posts
 
 class ReviewListView(ListView):
@@ -15,6 +16,10 @@ class ReviewListView(ListView):
     context_object_name = 'reviews'
     ordering = ['-date_posted']
 
+
+def addreview_view(request,*args,**kwargs):
+    return HttpResponse("<h1>you are about to add a review</h1>")
+
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     fields = ['title', 'review_text']
@@ -22,4 +27,3 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-

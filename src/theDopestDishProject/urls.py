@@ -24,10 +24,11 @@ from dishes.views import dish_view, addDish_view, search_view
 from restaurants.views import restaurant_view, addRestaurant_view
 from profiles.views import signup_view
 from profiles import views as profile_views
-from reviews.views import ReviewListView, ReviewCreateView
+from reviews.views import ReviewListView, ReviewCreateView, addreview_view
 #from locations.views import
 
 def home_view(request,*args,**kwargs):
+    print(request.user.is_authenticated)
     return render(request,"home.html", {})
 
 urlpatterns = [
@@ -39,7 +40,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='profiles/logout.html'), name='logout'),
     path('profile/', profile_views.profile, name='profile'),
     path('list_reviews/', ReviewListView.as_view(), name='review-list'),
-    path('review/new/', ReviewCreateView.as_view(), name='review-create'),
+    path('review/new/', addreview_view, name='review-create'),
 
 ]
 
