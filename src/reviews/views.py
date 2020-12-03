@@ -8,8 +8,9 @@ from django.views.generic import (
     DeleteView
 )
 from django.http import HttpResponse
+from profiles.models import User
 from .models import Review            #grabs the DB Posts
-
+from .forms import reviewForm
 class ReviewListView(ListView):
     model = Review
     template_name = '/list_reviews.html'
@@ -18,7 +19,17 @@ class ReviewListView(ListView):
 
 
 def addreview_view(request,*args,**kwargs):
-    return HttpResponse("<h1>you are about to add a review</h1>")
+    r = Review(author=request.user)
+    form = reviewForm(request.POST or None,instance=r)
+    dish = request.POST.get('dish')
+
+    if form.is_valid():
+        form.save()
+        form = reviewForm()
+    context = {
+    'form': form
+    }
+    return render(request,"reviews/review_form.html",context)
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review

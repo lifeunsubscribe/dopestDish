@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>yes</h1>
+<form action='profile/' method='POST'> {csrf_token}
+  {{form.as_p}}
+<input type='submit' value='Save' />
+</form>
+
+{% endblock %}
