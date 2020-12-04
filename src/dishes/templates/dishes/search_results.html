@@ -1,20 +1,13 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-	    <div class="search-container">
-		    <form action="/action_page.php">
-			    <input type="text" placeholder="Search for dish" name="search">
-			    <button onclick="search()">Go</button>
-		    </form>
-	    </div>
-	    <h1>Search Results</h1>
-	    	<ul>
-			{% for dish in object_list %}
-			<li>
-				{{ dish.title }}, {{ dish.resID }}
+<h1>Search Results</h1>
+
+<ul>
+  {% for dish in object_list %}
+    <li>
+      {{ dish.title }}, {{ dish.resID }}
     </li>
   {% endfor %}
 </ul>
-    </div>
 {% endblock content %}
