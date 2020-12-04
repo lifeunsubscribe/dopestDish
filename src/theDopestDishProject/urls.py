@@ -30,7 +30,7 @@ from reviews.models import Review
 
 def home_view(request,*args,**kwargs):
     print(request.user.is_authenticated)
-    reviewList = Review.objects.all()
+    reviewList = Review.objects.all().order_by('-date_posted')
     context = {
     'reviewList':reviewList
     }
@@ -40,7 +40,7 @@ urlpatterns = [
     path('', home_view, name='home'),     #display recent reviews, short blurb, login/signup options, to link to home.html we add name='home'
     path('admin/', admin.site.urls),    #interface to manage database objects
     path('search/', SearchResultsView.as_view(), name='search'),       #search bar for restaurants or dishes with predictive text and/or options for adding to database
-    
+
 
     path('signup/', signup_view, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='profiles/login.html'), name='login'),
@@ -53,7 +53,10 @@ urlpatterns = [
 
     #path('list_dishs/', ReviewListView.as_view(), name='review-list'),
     path('dish/new/', addDish_view, name='dish-create'),
-    path('dish/<int:id>/', dish_view, name='dish-details')
+    path('dish/<int:id>/', dish_view, name='dish-details'),
+
+    path('restaurant/new/', addRestaurant_view, name='rest-create'),
+    path('restaurant/<int:id>/', restaurant_view, name='rest-details')
 
 ]
 

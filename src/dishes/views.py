@@ -17,18 +17,13 @@ def addDish_view(request,*args,**kwargs):
     print(request.method)
     if form.is_valid():
         form.save()
-        d = form.cleaned_data
-        object = Dish.objects.filter(title=d.title)
         form = dishForm()
 
     context = {
     'form': form,
     'object':object
     }
-    if request.method == "GET":
-        return render(request,"dishes/add_dish.html",context)
-    else:
-        return render(request,"dishes/dish_details.html",context)
+    return render(request,"dishes/add_dish.html",context)
 
 def dish_view(request,id):
     obj = Dish.objects.get(id=id)
@@ -85,6 +80,7 @@ def search_view(request):
 class SearchResultsView(ListView):
     model = Dish
     template_name = 'dishes/search.html'
+
 
     def get_queryset(self): # new
         query = self.request.GET.get('q')

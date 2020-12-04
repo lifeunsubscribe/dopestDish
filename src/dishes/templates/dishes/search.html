@@ -2,9 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
   <div class="content-section">
-          <form action="{% url 'search' %}" method="get">
-          <input name="q" type="text" placeholder="Search...">
-          </form>
+          
       <div class="content-section">
         <h2>resulting items</h2>
         {% for post in object_list %}

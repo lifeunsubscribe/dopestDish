@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.http import HttpResponse
-from profiles.models import User
+from dishes.models import Dish
 from .models import Review            #grabs the DB Posts
 from .forms import reviewForm
 class ReviewListView(ListView):
@@ -25,6 +25,7 @@ def addreview_view(request,*args,**kwargs):
 
     if form.is_valid():
         form.save()
+        Dish.objects.filter(title=request.POST['dish'],restaurant=request.POST['restaurant']).update(numReviews=numReviews+1)
         form = reviewForm()
     context = {
     'form': form
