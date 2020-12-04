@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, ListView, CreateView
 
 from django.http import HttpResponse
 from dishes.models import Dish
@@ -26,16 +26,6 @@ def addreview_view(request,*args,**kwargs):
     'form': form
     }
     return render(request,"reviews/review_form.html",context)
-
-class DeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Review
-    success_url = '/'
-
-    def test_func(self):
-        review = self.get_object()
-        if self.request.user == review.author:
-            return True
-        return False
 
 def review_details_view(request,*args,**kwargs):
     r = Review(author=request.user)
