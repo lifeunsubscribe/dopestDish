@@ -9,6 +9,7 @@ from django.views.generic import (
 )
 from django.http import HttpResponse
 from dishes.models import Dish
+from restaurants.models import Restaurant
 from .models import Review            #grabs the DB Posts
 from .forms import reviewForm
 class ReviewListView(ListView):
@@ -31,7 +32,11 @@ def addreview_view(request,*args,**kwargs):
 
         obj = Dish.objects.get(id=d)
         obj.numReviews = obj.numReviews + 1  # Using an F expression to avoid race conditions
+        print(obj.resID.name)
+        res = Restaurant.objects.get(name=obj.resID.name)
+        res.totalReviews = res.totalReviews + 1
         obj.save()
+        res.save()
         form = reviewForm()
     context = {
     'form': form
