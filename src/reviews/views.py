@@ -1,12 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView
-)
+from django.views.generic import DeleteView
+
 from django.http import HttpResponse
 from dishes.models import Dish
 from .models import Review            #grabs the DB Posts
@@ -32,7 +27,15 @@ def addreview_view(request,*args,**kwargs):
     }
     return render(request,"reviews/review_form.html",context)
 
+class DeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Review
+    success_url = '/'
 
+    def test_func(self):
+        review = self.get_object()
+        if self.request.user == review.author:
+            return True
+        return False
 
 def review_details_view(request,*args,**kwargs):
     r = Review(author=request.user)
