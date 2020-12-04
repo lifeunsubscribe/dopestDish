@@ -54,7 +54,7 @@
                     <ul class="list-group">  <th><a href="{% url 'home' %}">Home</a></th>
                       <div>
                         {% if user.is_authenticated %}
-                        <li class="list-group-item list-group-item-light"><a href="{% url 'signup' %}">Want to add a review?</a></li>
+                        <li class="list-group-item list-group-item-light"><a href="{% url 'review-create' %}">Want to add a review?</a></li>
                         <li class="list-group-item list-group-item-light"><a href="{% url 'dish-create' %}">Add a Dish !</a></li>
                         <li class="list-group-item list-group-item-light"><a href="{% url 'rest-create' %}">Add a Restaurant !</a></li>
                         {% else %}

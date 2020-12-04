@@ -22,15 +22,27 @@ def addreview_view(request,*args,**kwargs):
     r = Review(author=request.user)
     form = reviewForm(request.POST or None,instance=r)
     dish = request.POST.get('dish')
+    print(request.POST.get('dish'))
 
     if form.is_valid():
         form.save()
-        Dish.objects.filter(title=request.POST['dish'],restaurant=request.POST['restaurant']).update(numReviews=numReviews+1)
+        d = request.POST.get('dish')
+        r = request.POST.get('restaurant')
+
+        obj = Dish.objects.get(id=d)
+        obj.numReviews = obj.numReviews + 1  # Using an F expression to avoid race conditions
+        obj.save()
         form = reviewForm()
     context = {
     'form': form
     }
     return render(request,"reviews/review_form.html",context)
+
+
+def process_review(request, d,r):
+    dish = Dish.objects.get(title=d, resID=r)
+    dish.numReviews = F('numReviews') + 1  # Using an F expression to avoid race conditions
+    dish.save()
 
 
 
