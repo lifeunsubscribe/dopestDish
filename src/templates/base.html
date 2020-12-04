@@ -55,13 +55,15 @@
                       <div>
                         {% if user.is_authenticated %}
                         <li class="list-group-item list-group-item-light"><a href="{% url 'review-create' %}">Want to add a review?</a></li>
+                        <li class="list-group-item list-group-item-light"><a href="{% url 'dish-create' %}">Add a Dish !</a></li>
                         {% else %}
 
                         <li class="list-group-item list-group-item-light"><a href="{% url 'signup' %}">Want to add a review?</a></li>
+                        <li class="list-group-item list-group-item-light"><a href="{% url 'signup' %}">Add a Dish !</a></li>
 
                         {% endif %}
                       </div>
-                        <li class="list-group-item list-group-item-light"><a href="{% url 'home' %}">Some Info 1</a></li>
+
                         <li class="list-group-item list-group-item-light"><a href="{% url 'home' %}">Some Info 2</a></li>
                         <li class="list-group-item list-group-item-light"><a href="{% url 'home' %}">etc</a></li>
                     </ul>

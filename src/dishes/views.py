@@ -1,16 +1,61 @@
 from django.shortcuts import render
+from django import forms
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView
 
 from .models import Dish
+from reviews.models import Review
+from .forms import dishForm
 
 
 # Create your views here.
 def addDish_view(request,*args,**kwargs):
-    return HttpResponse("<h1>Add Dish with Form</h1>")
+    form = dishForm(request.POST or None)
+    #dish = request.POST.get('dish')
+    print(request.method)
+    if form.is_valid():
+        form.save()
+        form = dishForm()
+    context = {
+    'form': form
+    }
+    if request.method == "GET":
+        return render(request,"dishes/add_dish.html",context)
+    else:
+        return render(request,"dishes/dish_details.html",context)
 
 def dish_view(request,*args,**kwargs):
     return HttpResponse("<h1>Display Dish object from args</h1>")
 
-def search_view(request,*args,**kwargs):
-    return render(request, 'dishes/search.html')
+class searchBar(forms.ModelForm):
+    #dish = forms.CharField(label='',required=False)
+    class Meta:
+        model = Review
+
+        fields = [
+        'dish'
+        ]
+
+def search_view(request):
+    #obj = Dish.objects.get(title=t)
+    search = searchBar(request.GET or None)
+    print(request)
+    print(dir(request))
+    #print(dir(search))
+
+
+    context = {
+    'search': search,
+    'object':object
+    }
+    return render(request, 'dishes/search.html',context)
+
+def search_results(request,t):
+    #object = Dish.objects.get(title=t)
+    context = {
+    'search': search
+    }
+    return render(request,'dishes/search.html',context)
+
+
+#<str:t>/
