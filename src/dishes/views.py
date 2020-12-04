@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django import forms
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView
+from django.db.models import Q
 
 from .models import Dish
 from reviews.models import Review
@@ -12,12 +13,17 @@ from .forms import dishForm
 def addDish_view(request,*args,**kwargs):
     form = dishForm(request.POST or None)
     #dish = request.POST.get('dish')
+    object = Dish()
     print(request.method)
     if form.is_valid():
         form.save()
+        d = form.cleaned_data
+        object = Dish.objects.filter(title=d.title)
         form = dishForm()
+
     context = {
-    'form': form
+    'form': form,
+    'object':object
     }
     if request.method == "GET":
         return render(request,"dishes/add_dish.html",context)
@@ -47,35 +53,47 @@ def dish_view(request,id):
     print(reviewList[0].dish)
     return render(request,"dishes/dish_details.html",context)
 
+
+
+
+
 class searchBar(forms.ModelForm):
     #dish = forms.CharField(label='',required=False)
     class Meta:
         model = Review
-
         fields = [
         'dish'
         ]
 
 def search_view(request):
-    #obj = Dish.objects.get(title=t)
+    dishList = Dish.objects.all()
     search = searchBar(request.GET or None)
-    print(request)
-    print(dir(request))
+    print(request.GET)
+    print(request.GET.urlencode())
     #print(dir(search))
 
-
+    print(request.GET['dish'])
+    dishList = Dish.objects.filter(id=request.GET['dish'])
+    #print(object[0].title)
     context = {
     'search': search,
-    'object':object
+    'dishList':dishList
     }
     return render(request, 'dishes/search.html',context)
 
-def search_results(request,t):
-    #object = Dish.objects.get(title=t)
-    context = {
-    'search': search
-    }
-    return render(request,'dishes/search.html',context)
+
+class SearchResultsView(ListView):
+    model = Dish
+    template_name = 'dishes/search.html'
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        object_list= Dish.objects.filter(
+            Q(title__icontains=query) | Q(title__icontains=query)
+        )
+        return object_list
+
+
 
 
 #<str:t>/

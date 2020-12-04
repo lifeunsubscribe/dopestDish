@@ -22,3 +22,9 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.title
+
+class searchCriteria(models.Model):
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    hiprice = models.DecimalField(decimal_places=2,max_digits=10000)
+    loprice = models.DecimalField(decimal_places=2,max_digits=10000)
