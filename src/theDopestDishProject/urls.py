@@ -25,11 +25,16 @@ from restaurants.views import restaurant_view, addRestaurant_view
 from profiles.views import signup_view
 from profiles import views as profile_views
 from reviews.views import ReviewListView, ReviewCreateView, addreview_view, review_details_view
+from reviews.models import Review
 #from locations.views import
 
 def home_view(request,*args,**kwargs):
     print(request.user.is_authenticated)
-    return render(request,"home.html", {})
+    reviewList = Review.objects.all()
+    context = {
+    'reviewList':reviewList
+    }
+    return render(request,"home.html", context)
 
 urlpatterns = [
     path('', home_view, name='home'),     #display recent reviews, short blurb, login/signup options, to link to home.html we add name='home'
@@ -48,7 +53,7 @@ urlpatterns = [
 
     #path('list_dishs/', ReviewListView.as_view(), name='review-list'),
     path('dish/new/', addDish_view, name='dish-create'),
-    path('dish/details', dish_view, name='dish-details')
+    path('dish/<int:id>/', dish_view, name='dish-details')
 
 ]
 

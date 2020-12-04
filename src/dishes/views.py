@@ -24,8 +24,28 @@ def addDish_view(request,*args,**kwargs):
     else:
         return render(request,"dishes/dish_details.html",context)
 
-def dish_view(request,*args,**kwargs):
-    return HttpResponse("<h1>Display Dish object from args</h1>")
+def dish_view(request,id):
+    obj = Dish.objects.get(id=id)
+    reviewList = []
+    avgRating = 0
+    i = 0
+    if Review.objects.filter(dish=obj.id).exists():
+            reviewList = Review.objects.filter(dish=obj.id)
+
+    for r in reviewList:
+        i+=1
+        avgRating += r.rating
+
+    avgRating /= i
+
+    context = {
+    'object':obj,
+    'reviewList':reviewList,
+    'avgRating':avgRating
+    }
+    print(obj)
+    print(reviewList[0].dish)
+    return render(request,"dishes/dish_details.html",context)
 
 class searchBar(forms.ModelForm):
     #dish = forms.CharField(label='',required=False)

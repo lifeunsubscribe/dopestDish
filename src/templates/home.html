@@ -15,4 +15,20 @@
  <h2>join the forum that reviews dishes instead of restaurants</h2>
  <p> </p>
  <p>insert recent reviews here and/or display foods that need reviews</p>
+
+ <div class="content-section">
+   <h2>Recent Reviews</h2>
+
+   {% for post in reviewList %}
+   <div class="content-section">
+  <h5>{{post.dish}} </h5>
+   <p1>Rating: {{post.rating}} stars</p1>
+   <div class="content-section">
+     <p>{{post.review_text}}</p>
+     </div>
+     <p1>Author: {{post.author}} </p1>
+     <p>{{post.date_posted}} </p>
+     </div>
+       {% endfor %}
+ </div>
 {% endblock %}

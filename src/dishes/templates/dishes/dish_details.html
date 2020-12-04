@@ -2,6 +2,23 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-        {{form}}
+      <h1>{{object.title}}</h1>
+      <h2>${{object.price}}</h2>
+      <p>{{object.description}}</p>
+    </div>
+    <div class="content-section">
+      <h2>More Reviews for this item</h2>
+      <p1>Average Rating: {{avgRating}} stars</p1>
+      <br></br>
+      {% for post in reviewList %}
+      <div class="content-section">
+      <p1>Rating: {{post.rating}} stars</p1>
+      <div class="content-section">
+        <p>{{post.review_text}}</p>
+        </div>
+        <p1>Author: {{post.author}} </p1>
+        <p>{{post.date_posted}} </p>
+        </div>
+          {% endfor %}
     </div>
 {% endblock content %}
