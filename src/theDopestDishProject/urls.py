@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from dishes.views import dish_view, addDish_view, search_view, SearchResultsView
 from restaurants.views import restaurant_view, addRestaurant_view
-from profiles.views import signup_view
+from profiles.views import signup_view, deleteReview_view
 from profiles import views as profile_views
 from reviews.views import ReviewListView, ReviewCreateView, addreview_view, review_details_view
 from reviews.models import Review
@@ -50,6 +50,7 @@ urlpatterns = [
     path('list_reviews/', ReviewListView.as_view(), name='review-list'),
     path('review/new/', addreview_view, name='review-create'),
     path('review/details', review_details_view, name='review-details'),
+    path('review/delete', deleteReview_view, name='deleteReview'),
 
     #path('list_dishs/', ReviewListView.as_view(), name='review-list'),
     path('dish/new/', addDish_view, name='dish-create'),

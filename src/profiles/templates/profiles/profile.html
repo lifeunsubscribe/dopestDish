@@ -21,4 +21,19 @@
             </div>
         </form>
     </div>
+    <div class="content-section">
+      <h2>Your reviews</h2>
+      {% for post in reviewList %}
+      <div class="content-section">
+      <a href="/dish/{{ post.dish.id }}"> {{post.dish}} </a>
+      <p1> Rating: {{post.rating}} stars</p1>
+      <div class="content-section">
+        <p>{{post.review_text}}</p>
+        </div>
+        <p1>Author: {{post.author}} </p1>
+        <p>{{post.date_posted}} </p>
+        <button id= {{post.id}} href= "{% url 'deleteReview' %}" type="submit">delete</button>
+        </div>
+          {% endfor %}
+    </div>
 {% endblock content %}

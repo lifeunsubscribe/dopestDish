@@ -26,7 +26,7 @@
 
    {% for post in reviewList %}
    <div class="content-section">
-  <h5>{{post.dish}} </h5>
+  <a href="/dish/{{ post.dish.id }}"> {{post.dish}} </a>
    <p1>Rating: {{post.rating}} stars</p1>
    <div class="content-section">
      <p>{{post.review_text}}</p>
