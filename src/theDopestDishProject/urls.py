@@ -50,7 +50,7 @@ urlpatterns = [
     path('list_reviews/', ReviewListView.as_view(), name='review-list'),
     path('review/new/', addreview_view, name='review-create'),
     path('review/details', review_details_view, name='review-details'),
-    path('review/delete', deleteReview_view, name='deleteReview'),
+    path('review/delete/<int:id>/', deleteReview_view, name='deleteReview'),
 
     #path('list_dishs/', ReviewListView.as_view(), name='review-list'),
     path('dish/new/', addDish_view, name='dish-create'),

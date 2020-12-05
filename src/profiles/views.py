@@ -45,4 +45,5 @@ def profile(request):
 def deleteReview_view(request,id):
     print(request.method)
     print(id)
+    Review.objects.get(id=id).delete()
     return profile(request)

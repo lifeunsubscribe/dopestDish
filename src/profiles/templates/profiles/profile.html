@@ -32,7 +32,7 @@
         </div>
         <p1>Author: {{post.author}} </p1>
         <p>{{post.date_posted}} </p>
-        <button id= {{post.id}} href= "{% url 'deleteReview' %}" type="submit">delete</button>
+        <a href= "/review/delete/{{post.id}}" type="submit">delete</a>
         </div>
           {% endfor %}
     </div>
