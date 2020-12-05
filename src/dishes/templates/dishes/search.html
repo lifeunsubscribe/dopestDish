@@ -2,12 +2,12 @@
 {% load crispy_forms_tags %}
 {% block content %}
   <div class="content-section">
-          
+
       <div class="content-section">
         <h2>resulting items</h2>
         {% for post in object_list %}
         <div class="content-section">
-        <p1> {{post.title}} </p1>
+        <a href="/dish/{{ post.id }}"> {{post.title}} </a>
         <p1>Restaurant:         {{post.resID.name}} </p1>
         <div class="content-section">
           <p>{{post.description}}</p>

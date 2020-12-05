@@ -37,7 +37,8 @@ def dish_view(request,id):
         i+=1
         avgRating += r.rating
 
-    avgRating /= i
+    if i > 0:
+        avgRating /= i
 
     context = {
     'object':obj,
@@ -45,7 +46,6 @@ def dish_view(request,id):
     'avgRating':avgRating
     }
     print(obj)
-    print(reviewList[0].dish)
     return render(request,"dishes/dish_details.html",context)
 
 
