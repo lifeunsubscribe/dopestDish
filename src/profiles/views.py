@@ -31,7 +31,7 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-        reviewList = Review.objects.filter(author=request.user)
+        reviewList = Review.objects.filter(author=request.user).order_by('-date_posted')
         print(reviewList)
 
     context = {

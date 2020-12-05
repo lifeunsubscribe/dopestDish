@@ -17,7 +17,9 @@ def addDish_view(request,*args,**kwargs):
     print(request.method)
     if form.is_valid():
         form.save()
+        
         form = dishForm()
+
 
     context = {
     'form': form,
